@@ -73,7 +73,7 @@ function Fairies() {
 
 export default function FairyDust() {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="fixed inset-0 z-40 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
         <Fairies />
         <EffectComposer>

@@ -436,7 +436,7 @@ export default function ShowcaseSection() {
       : "calc(66.666% + 0px)";
 
   return (
-    <section className="relative w-full min-h-[85vh] md:min-h-screen bg-black/70 overflow-hidden text-white px-4 sm:px-8 md:px-16 lg:px-24 py-0 md:py-12 -mt-16 sm:mt-0 md:mt-12">
+    <section className="relative w-full min-h-[85vh] md:min-h-screen bg-black overflow-hidden text-white px-4 sm:px-8 md:px-16 lg:px-24 py-0 md:py-12 -mt-16 sm:mt-0 md:mt-12">
       <div className="relative z-10 flex flex-col items-center max-w-6xl mx-auto">
         {/* Label */}
         <div className="relative flex items-center justify-center gap-4 mb-5 opacity-0 animate-[fadeSlideDown_0.8s_ease_forwards]">
