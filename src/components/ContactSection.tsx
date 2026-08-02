@@ -35,7 +35,7 @@ export default function ContactSection() {
 
     return (
         <section
-            className="relative w-full min-h-screen bg-black overflow-hidden
+            className="relative w-full min-h-screen bg-black/70 overflow-hidden
             px-4 sm:px-8 md:px-16 lg:px-24 py-24 text-white"
         >
             {/* premium grid background */}
