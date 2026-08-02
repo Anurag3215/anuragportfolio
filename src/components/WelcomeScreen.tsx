@@ -7,7 +7,7 @@ import * as THREE from "three";
 
 function BlackHoleWarp() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const count = 400;
+  const count = 120; // Reduced for performance
   
   const dummy = useMemo(() => new THREE.Object3D(), []);
   
@@ -103,11 +103,11 @@ export default function WelcomeScreen() {
     >
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
+        <Canvas camera={{ position: [0, 0, 10], fov: 75 }} dpr={[1, 1.5]}>
           <color attach="background" args={["#000000"]} />
           <BlackHoleWarp />
-          <EffectComposer>
-            <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} intensity={2} />
+          <EffectComposer multisampling={0}>
+            <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={200} intensity={2} />
           </EffectComposer>
         </Canvas>
         <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-[120px] rounded-full pointer-events-none" />

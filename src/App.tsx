@@ -9,7 +9,6 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import FrontendDeveloperSection from "@/components/FrontendDeveloperSection";
 import Showcase from "./components/Showcase";
 import ContactSection from "@/components/ContactSection";
-import FairyDust from "./components/FairyDust";
 import { Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 
@@ -79,7 +78,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={
         <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
-          <FairyDust />
+          
           <div className="relative z-10">
             <AnimatePresence>{showWelcome && <WelcomeScreen />}</AnimatePresence>
 
