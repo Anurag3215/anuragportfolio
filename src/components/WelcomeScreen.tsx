@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Code2, User, Globe } from "lucide-react";
 import { useEffect, useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
 function BlackHoleWarp() {
@@ -19,8 +20,8 @@ function BlackHoleWarp() {
         theta,
         r,
         z: (Math.random() - 0.5) * 50,
-        radialSpeed: 15 + Math.random() * 30,
-        angularSpeed: 1 + Math.random() * 3,
+        radialSpeed: 4 + Math.random() * 8, // medium speed
+        angularSpeed: 0.5 + Math.random() * 1.5, // gentle spin
       });
     }
     return temp;
@@ -61,7 +62,14 @@ function BlackHoleWarp() {
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       {/* long thin lines, length is 2 along Z axis */}
       <boxGeometry args={[0.02, 0.02, 2]} />
-      <meshBasicMaterial color="#ffffff" transparent opacity={0.5} />
+      {/* Magical glowing color with additive blending */}
+      <meshBasicMaterial 
+        color={[1.2, 0.6, 2.5]} 
+        toneMapped={false} 
+        transparent 
+        opacity={0.8} 
+        blending={THREE.AdditiveBlending} 
+      />
     </instancedMesh>
   );
 }
@@ -96,7 +104,11 @@ export default function WelcomeScreen() {
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
+          <color attach="background" args={["#000000"]} />
           <BlackHoleWarp />
+          <EffectComposer>
+            <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} intensity={2} />
+          </EffectComposer>
         </Canvas>
         <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-[-150px] right-[-80px] w-[300px] h-[300px] bg-white/5 blur-[100px] rounded-full pointer-events-none" />
