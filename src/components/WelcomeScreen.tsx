@@ -1,55 +1,6 @@
 import { motion } from "framer-motion";
 import { Code2, User, Globe } from "lucide-react";
-import { useEffect, useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
-
-function WarpLines() {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
-  const count = 200;
-  
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  
-  const particles = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      temp.push({
-        x: (Math.random() - 0.5) * 40,
-        y: (Math.random() - 0.5) * 40,
-        z: (Math.random() - 0.5) * 100,
-        speed: 20 + Math.random() * 40
-      });
-    }
-    return temp;
-  }, []);
-
-  useFrame((_, delta) => {
-    if (!meshRef.current) return;
-    
-    particles.forEach((particle, i) => {
-      particle.z += particle.speed * delta;
-      
-      if (particle.z > 20) {
-        particle.z = -100;
-        particle.x = (Math.random() - 0.5) * 40;
-        particle.y = (Math.random() - 0.5) * 40;
-      }
-      
-      dummy.position.set(particle.x, particle.y, particle.z);
-      dummy.updateMatrix();
-      meshRef.current!.setMatrixAt(i, dummy.matrix);
-    });
-    
-    meshRef.current.instanceMatrix.needsUpdate = true;
-  });
-
-  return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <boxGeometry args={[0.02, 0.02, 4]} />
-      <meshBasicMaterial color="#ffffff" transparent opacity={0.3} />
-    </instancedMesh>
-  );
-}
+import { useEffect } from "react";
 
 export default function WelcomeScreen() {
   const icons = [Code2, User, Globe];
@@ -80,9 +31,6 @@ export default function WelcomeScreen() {
     >
       {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
-          <WarpLines />
-        </Canvas>
         <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-[-150px] right-[-80px] w-[300px] h-[300px] bg-white/5 blur-[100px] rounded-full pointer-events-none" />
       </div>
